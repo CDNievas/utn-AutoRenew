@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>AutoRenovador - UTN</title>
+		<link rel="stylesheet" type="text/css" href="/static/styles.css">
+	</head>
+
+	<body>
+		<div class="login">
+			<div class="login-screen">
+				<div class="app-title">
+					<h1>Renovador Automatico</h1>
+				</div>
+				<form action="/doPost" method="POST">
+
+					<div class="login-form">
+						{% with messages = get_flashed_messages(category_filter=["error"]) %}
+						{% if messages %}
+							{%- for msg in messages %}
+								<p class="error">{{msg}}</p>
+							{% endfor -%}
+						{% endif %}
+						{% endwith %}
+						
+						{% with messages = get_flashed_messages(category_filter=["success"]) %}
+						{% if messages %}
+							{%- for msg in messages %}
+								<p class="success">{{msg}}</p>
+							{% endfor -%}
+						{% endif %}
+						{% endwith %}
+						<div class="control-group">
+							<input name="username" type="text" class="login-field" value="" placeholder="Usuario SInAp" id="login-name">
+							<label class="login-field-icon fui-user" for="login-name"></label>
+						</div>
+
+						<div class="control-group">
+							<input name="password" type="password" class="login-field" value="" placeholder="Clave" id="login-pass">
+							<label class="login-field-icon fui-lock" for="login-pass"></label>
+						</div>
+						
+						<div class="control-group">
+							<button type="submit" name="register" class="btn btn-primary btn-large btn-block" href="#">Hacete cargo</button>
+						</div>
+						
+						<button type="submit" name="delete" class="btn btn-primary btn-large btn-block" href="#">No te hagas mas cargo</button>
+						
+						<a class="login-link" href="/terms">Terminos y condiciones</a>
+					</div>
+
+				</form>
+			</div>
+
+			<div class="info">
+				<p>Usuarios registrados: <b>{{users}}</b></p>
+				<p>Libros renovados: <b>{{libros}}</b></p>
+			</div>
+
+			<div class="git">
+				<a href="https://github.com/CDNievas/utn-autorenew" target="_blank"><img src="/static/git.png"></a>
+			</div>
+
+
+		</div>
+	</body>
+	
+</html>

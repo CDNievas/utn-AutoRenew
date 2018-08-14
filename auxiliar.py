@@ -12,7 +12,6 @@ def obtenerFormulario():
 	if r.history:
 		# Maneja redireccion
 		for resp in r.history:
-			print("Redireccion " + resp.url)
 			r = resp
 			
 	link = r.headers["Location"]
@@ -41,19 +40,27 @@ def login(formArgs,username,password):
 	r = session.post(postWeb,headers=headers,data=payload)
 	
 	parser = BeautifulSoup(r.text, "lxml")
-	
-	tag = parser.find("form")
-	postWeb = tag.get("action")
+	tag=parser.find("div",{"class":"alert alert-danger"})
 
-	tag = parser.find("input",{"name":"SAMLResponse"})
-	samlResponse = tag.get("value")	
+	if tag is not None:
+		return False
+	else :
+		return True
 	
-	tag = parser.find("input",{"name":"RelayState"})
-	relayState = tag.get("value")		
+	"""
 	
-	payload = {"SAMLResponse":samlResponse,
-	           "RelayState":relayState}
-	
-	r = session.post(postWeb,headers=headers,data=payload)
-	
-	print(r.text)
+		tag = parser.find("form")
+		postWeb = tag.get("action")
+		
+		tag = parser.find("input",{"name":"SAMLResponse"})
+		samlResponse = tag.get("value")	
+		
+		tag = parser.find("input",{"name":"RelayState"})
+		relayState = tag.get("value")		
+		
+		payload = {"SAMLResponse":samlResponse,
+			       "RelayState":relayState}
+		
+		r = session.post(postWeb,headers=headers,data=payload)
+		
+		print(r.text)"""
