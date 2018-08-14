@@ -1,4 +1,3 @@
-
 from flask import Blueprint, request, render_template, flash
 
 from auxiliar import *
@@ -70,8 +69,4 @@ def delete(user,password):
 		return 0
 	else:
 		return 1	
-
-def userExists(user,password):
-	formArgs = obtenerFormulario()	
-	return login(formArgs,user,password)
 

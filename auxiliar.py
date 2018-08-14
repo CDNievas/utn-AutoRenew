@@ -2,6 +2,14 @@ from bs4 import BeautifulSoup
 import requests
 import json
 
+def renewLibros(username,password):
+	formArgs = obtenerFormulario()	
+	session, request = login(formArgs,username,password)
+	renew(session,request)
+
+def renew(session,request):
+	return None
+
 def obtenerFormulario():
 	
 	headers = {"Connection":"keep-alive",
@@ -38,29 +46,32 @@ def login(formArgs,username,password):
 	           "Connection":"keep-alive"}	
 	
 	r = session.post(postWeb,headers=headers,data=payload)
-	
 	parser = BeautifulSoup(r.text, "lxml")
 	tag=parser.find("div",{"class":"alert alert-danger"})
-
+	
 	if tag is not None:
-		return False
-	else :
-		return True
+		raise ValueError("Usuario inexistente")
+
+	tag = parser.find("form")
+	postWeb = tag.get("action")
 	
-	"""
+	tag = parser.find("input",{"name":"SAMLResponse"})
+	samlResponse = tag.get("value")	
 	
-		tag = parser.find("form")
-		postWeb = tag.get("action")
-		
-		tag = parser.find("input",{"name":"SAMLResponse"})
-		samlResponse = tag.get("value")	
-		
-		tag = parser.find("input",{"name":"RelayState"})
-		relayState = tag.get("value")		
-		
-		payload = {"SAMLResponse":samlResponse,
-			       "RelayState":relayState}
-		
-		r = session.post(postWeb,headers=headers,data=payload)
-		
-		print(r.text)"""
+	tag = parser.find("input",{"name":"RelayState"})
+	relayState = tag.get("value")		
+	
+	payload = {"SAMLResponse":samlResponse,
+		       "RelayState":relayState}
+	
+	r = session.post(postWeb,headers=headers,data=payload)
+	
+	return(session,r)
+
+def userExists(user,password):
+	formArgs = obtenerFormulario()	
+	try:
+		login(formArgs,user,password)
+		return True;
+	except ValueError:
+		return False;
