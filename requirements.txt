@@ -1,4 +1,4 @@
 Flask
 apscheduler
 pymongo
-beatifulsoup4
+beautifulsoup4
