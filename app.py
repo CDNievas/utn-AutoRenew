@@ -9,7 +9,7 @@ from webBP import webBP
 from Mongo import Mongo
 
 PORT = os.environ.get("PORT")
-HOST = "utn-autorenew.herokuapp.com"
+HOST = "0.0.0.0"
 MONGODB = os.environ.get("MONGODB")
 
 app = Flask(__name__)
