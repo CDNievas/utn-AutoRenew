@@ -13,7 +13,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job("interval", minutes=6*60)
+@sched.scheduled_job("interval", minutes=1)
 def autorenew():
 	print("Starting AutoRenew - " + time.ctime())
 	renewAll()
@@ -29,4 +29,5 @@ def renewAll():
 	cantUsers = usuarios.count()
 	print("Usuarios renovados: {}".format(cantUsers))
 
+renewAll()
 sched.start()
