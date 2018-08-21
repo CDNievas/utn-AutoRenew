@@ -1,0 +1,4 @@
+Flask
+apscheduler
+pymongo
+beatifulsoup4
