@@ -2,3 +2,4 @@ Flask
 apscheduler
 pymongo
 beautifulsoup4
+requests
