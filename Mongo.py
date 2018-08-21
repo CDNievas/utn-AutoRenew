@@ -13,5 +13,5 @@ class Mongo():
 	def getUsuarios():
 		return Mongo.instance.autorenew.usuarios
 		
-	def getLibros():
-		return Mongo.instance.autorenew.libros
+	def getRegistros():
+		return Mongo.instance.autorenew.registros
