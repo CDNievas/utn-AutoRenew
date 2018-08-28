@@ -4,3 +4,4 @@ pymongo
 beautifulsoup4
 requests
 lxml
+rq

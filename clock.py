@@ -11,13 +11,17 @@ from botRenew import renewLibros
 # Scheduler
 from apscheduler.schedulers.blocking import BlockingScheduler
 
+# Worker
+from worker import conn
+
+q = Queue(connection=conn)
 sched = BlockingScheduler()
 
-@sched.scheduled_job("interval", minutes=6*60)
+@sched.scheduled_job("interval", minutes=1)
 def autorenew():
 	print("Starting AutoRenew - " + time.ctime())
-	renewAll()
-		
+	q.enqueue(renewAll)
+
 def renewAll():
 	mongo = Mongo(MONGODB)
 	usuarios = mongo.getUsuarios()	

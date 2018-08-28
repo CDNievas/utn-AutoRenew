@@ -1,2 +1,3 @@
 web: python app.py
-clock: python scheduler.py
+worker: python worker.py
+clock: python clock.py
