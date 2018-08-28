@@ -14,13 +14,13 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 # Worker
 from worker import conn
 
-q = Queue(connection=conn)
+#q = Queue(connection=conn)
 sched = BlockingScheduler()
 
 @sched.scheduled_job("interval", minutes=1)
 def autorenew():
 	print("Starting AutoRenew - " + time.ctime())
-	q.enqueue(renewAll)
+	#q.enqueue(renewAll)
 
 def renewAll():
 	mongo = Mongo(MONGODB)
@@ -33,5 +33,5 @@ def renewAll():
 	cantUsers = usuarios.count()
 	print("Usuarios renovados: {}".format(cantUsers))
 
-renewAll()
+#renewAll()
 sched.start()
