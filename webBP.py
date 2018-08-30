@@ -30,6 +30,8 @@ def renew():
 	
 	cantUsers = usuarios.count()
 	print("Usuarios renovados: {}".format(cantUsers))	
+	
+	return "OK"
 
 @webBP.route("/doPost", methods=["POST"])
 def doPost():
