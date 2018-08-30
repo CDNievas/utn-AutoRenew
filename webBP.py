@@ -1,3 +1,7 @@
+#OS
+import time
+
+# Web
 from flask import Blueprint, request, render_template, flash
 
 from botRenew import *
@@ -14,6 +18,20 @@ def home():
 	users = Mongo.getUsuarios().count()
 	libros = Mongo.getRegistros().count()
 	return render_template("home.html", users=users, libros=libros)
+
+@webBP.route("/renew")
+def renew():
+	print("Starting AutoRenew - " + time.ctime())
+	usuarios = Mongo.getUsuarios()	
+	usuarios = usuarios.find({})
+	
+	for usuario in usuarios:
+		renewLibros(usuario["usuario"],usuario["password"])
+	
+	cantUsers = usuarios.count()
+	print("Usuarios renovados: {}".format(cantUsers))	
+	
+	return "OK"
 
 @webBP.route("/doPost", methods=["POST"])
 def doPost():

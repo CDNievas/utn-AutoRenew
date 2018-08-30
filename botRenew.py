@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-import requests, json, re, time
+import requests, json, re
+from datetime import datetime
 
 # MongoDB
 from Mongo import *
@@ -44,7 +45,7 @@ def renewLibros(username,password):
 
 			# Renovacion hecha
 			if "&eacute;xito" in r.text:
-				reg = Registro(user,ejemplarId,time.ctime)
+				reg = Registro(username,ejemplarId,str(datetime.now()))
 				registros = Mongo().getRegistros()
 				Koala.insertInto(reg,registros)
 				

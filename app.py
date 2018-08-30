@@ -8,9 +8,9 @@ from webBP import webBP
 # MongoDB
 from Mongo import Mongo
 
-PORT = 8443
+PORT = os.environ.get("PORT")
 HOST = "0.0.0.0"
-MONGODB = "mongodb://atrpapa:atr123@ds219672.mlab.com:19672/autorenew"
+MONGODB = os.environ.get("MONGODB")
 
 app = Flask(__name__)
 
