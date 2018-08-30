@@ -11,8 +11,6 @@ from Mongo import *
 import Koala
 from jsonModel import *
 
-from emailSend import *
-
 webBP = Blueprint("webBP", __name__, template_folder="webfiles")
 
 @webBP.route("/")
@@ -28,17 +26,11 @@ def renew():
 	usuarios = usuarios.find({})
 	
 	for usuario in usuarios:
-		renewLibros(usuario["usuario"],usuario["password"])
+		renewLibros(usuario["usuario"],usuario["password"],usuario["email"])
 	
 	cantUsers = usuarios.count()
 	print("Usuarios renovados: {}".format(cantUsers))	
 	
-	return "OK"
-
-@webBP.route("/jaja")
-def asdasd():
-	print("Enviando email - " + time.ctime())
-	enviarEmail("cdnievas@hotmail.com")
 	return "OK"
 
 @webBP.route("/doPost", methods=["POST"])
