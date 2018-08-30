@@ -45,7 +45,7 @@ def renewLibros(username,password):
 
 			# Renovacion hecha
 			if "&eacute;xito" in r.text:
-				reg = Registro(user,ejemplarId,str(datetime.now()))
+				reg = Registro(username,ejemplarId,str(datetime.now()))
 				registros = Mongo().getRegistros()
 				Koala.insertInto(reg,registros)
 				
