@@ -7,7 +7,10 @@ from Mongo import *
 import Koala
 from jsonModel import *
 
-def renewLibros(username,password):
+# Email Sender
+from emailSend import *
+
+def renewLibros(username,password,email):
 	
 	formArgs = obtenerFormulario()	
 	session, request = login(formArgs,username,password)
@@ -48,8 +51,10 @@ def renewLibros(username,password):
 				reg = Registro(username,ejemplarId,str(datetime.now()))
 				registros = Mongo().getRegistros()
 				Koala.insertInto(reg,registros)
-				
-	print("Renove libros: {}".format(username))
+				print("Renovacion correcta: {}".format(username))				
+			else:
+				enviarEmail(email)
+				print("Fallo renovacion: {}".format(username))
 				
 				
 def obtenerFormulario():

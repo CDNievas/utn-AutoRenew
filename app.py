@@ -9,7 +9,6 @@ from webBP import webBP
 from Mongo import Mongo
 
 PORT = os.environ.get("PORT")
-HOST = "0.0.0.0"
 MONGODB = os.environ.get("MONGODB")
 
 app = Flask(__name__)
@@ -20,4 +19,4 @@ if __name__ == "__main__":
 	
 	app.secret_key = os.urandom(12)
 	app.register_blueprint(webBP)
-	app.run(HOST,PORT)
+	app.run("0.0.0.0",PORT,debug=False)
